@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
+    <link rel="stylesheet" href="Cocktail.css">
+    <title>Cocktail Details</title>
+</head>
+<body>
+<div class="container">
+   <div class="search-box">
+     <i class="fa-solid fa-magnifying-glass"></i>  
+     <input type="text" placeholder="Enter a cocktail name.." value="">
+   </div>  
+  <p class="msg">Result will be displayed here...</p>
+<div class="cocktail-data">  
+   <div class="img-box">
+      <img src="" alt="">
+      <div class="cocktail-name">
+         <span><i class="fa-solid fa-martini-glass-citrus"></i>Loading..</span>     
+      </div>
+   </div>
+   
+   <div class="ingredients-box">
+      <h3>Ingredients</h3>   
+      <div class="ingredients">
+         <!--Insert Ingredients In This Box-->   
+      </div>
+   </div>
+   <div class="instructions">
+      <div class="close-btn">
+          <i class="fa-solid fa-xmark"></i>    
+      </div>    
+      <div class="instruction">
+              
+      </div>
+   </div>
+   
+   <!-- Customization Form -->
+   <div class="customization-box">
+      <h3>Customize Your Drink</h3>
+      <label for="extra-ingredients">Extra Ingredients:</label>
+      <input type="text" id="extra-ingredients" placeholder="e.g., Mint, Lemon">
+      <label for="special-instructions">Special Instructions:</label>
+      <textarea id="special-instructions" placeholder="Any special instructions..."></textarea>
+   </div>
+   
+   <button class="start-mixing-btn">Start Mixing</button>
+   <button class="order-btn" onclick="addToCart()">Add to Cart</button>
+   <button class="view-cart-btn" onclick="viewCart()">View Cart</button>
+</div>   
+</div>
+<script src="Cocktail.js"></script>
+<script>
+    function addToCart() {
+        const cocktailName = document.querySelector('.cocktail-name span').textContent;
+        const ingredients = Array.from(document.querySelectorAll('.ingredients li')).map(li => li.textContent);
+        const extraIngredients = document.getElementById('extra-ingredients').value;
+        const specialInstructions = document.getElementById('special-instructions').value;
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({
+            name: cocktailName,
+            ingredients: ingredients,
+            extraIngredients: extraIngredients,
+            specialInstructions: specialInstructions
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Item added to cart!');
+    }
+
+    function viewCart() {
+        window.location.href = 'order.html';
+    }
+</script>
+</body>
+</html>
